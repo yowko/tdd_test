@@ -31,14 +31,17 @@ namespace TDD_day2
 
 
         [TestMethod]
-        public void Test_四本書_三本相同_第四本是重複的_結果應為370()
+        public void Test_四本書_三本不同_第四本是重複的_結果應為370()
         {
             //arrange
             var target = new Cart<Book>(rules);
             var cart =
                 new List<Book>
                 {
-
+                    new Book(){Id = 1,Name = "HarryPotter 1",Price = 100},
+                    new Book(){Id = 2,Name = "HarryPotter 2",Price = 100},
+                    new Book(){Id = 3,Name = "HarryPotter 3",Price = 100},
+                    new Book(){Id = 1,Name = "HarryPotter 1",Price = 100}
                 };
             var expected = 370;
 
@@ -55,14 +58,14 @@ namespace TDD_day2
 
     internal class Book
     {
-        public Guid Id{ get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
     }
 
     internal class Rule<T>
     {
-        public Func<T, Guid> Type { get; set; }
+        public Func<T, int> Type { get; set; }
         public Dictionary<int, double> Details { get; set; }
 
     }
