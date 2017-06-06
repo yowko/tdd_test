@@ -6,9 +6,9 @@ namespace TDD_day2
 {
     internal class Cart<T>
     {
-        private readonly Rule<T> rules;
+        private readonly Dictionary<int, double> rules;
 
-        public Cart(Rule<T> rules)
+        public Cart(Dictionary<int, double> rules)
         {
             this.rules = rules;
         }
@@ -22,10 +22,10 @@ namespace TDD_day2
         private double GetAmount(List<T> cart, Func<T, double> selector)
         {
             double result = 0;
-            var DistinctCart = cart.Select(a => a).Distinct();
+            var DistinctCart = cart.Distinct();
 
             double discount = 0.0;
-            if (rules.Details.TryGetValue(DistinctCart.ToList().Count(), out discount))
+            if (rules.TryGetValue(DistinctCart.ToList().Count(), out discount))
             {
                 var disCartList = DistinctCart.ToList();
                 foreach (var item in disCartList)

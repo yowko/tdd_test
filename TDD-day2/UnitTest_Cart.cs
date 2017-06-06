@@ -10,22 +10,18 @@ namespace TDD_day2
     public class UnitTest_Cart
     {
 
-        private static Rule<Book> rules;
+        private static Dictionary<int, double> rules;
         [ClassInitialize]
         public static void RuleInit(TestContext testcontext)
         {
-            rules = new Rule<Book>()
-            {
-                Type = a => a.Id,
-                Details = new Dictionary<int, double>()
+            rules = new Dictionary<int, double>()
                 {
                     { 5,0.25},
                     { 4,0.20},
                     { 3,0.10},
                     { 2,0.05},
                 }
-
-            };
+            ;
 
         }
         [TestMethod]
@@ -200,12 +196,5 @@ namespace TDD_day2
         public int Id { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
-    }
-
-    internal class Rule<T>
-    {
-        public Func<T, int> Type { get; set; }
-        public Dictionary<int, double> Details { get; set; }
-
     }
 }
