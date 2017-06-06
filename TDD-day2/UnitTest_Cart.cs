@@ -28,22 +28,17 @@ namespace TDD_day2
             };
 
         }
-
-
         [TestMethod]
-        public void Test_四本書_三本不同_第四本是重複的_結果應為370()
+        public void Test_第一集買了一本_其他都沒買_價格應為100()
         {
             //arrange
             var target = new Cart<Book>(rules);
             var cart =
                 new List<Book>
                 {
-                    new Book(){Id = 1,Name = "HarryPotter 1",Price = 100},
-                    new Book(){Id = 2,Name = "HarryPotter 2",Price = 100},
-                    new Book(){Id = 3,Name = "HarryPotter 3",Price = 100},
                     new Book(){Id = 1,Name = "HarryPotter 1",Price = 100}
                 };
-            var expected = 370;
+            var expected = 100;
 
             // act
             var actual = target.Checkout(cart, a => a.Price);
@@ -54,21 +49,19 @@ namespace TDD_day2
             Assert.AreEqual(expected, actual);
 
         }
+
         [TestMethod]
-        public void Test_五本書_三本不同_第四本與第五本是重複的_結果應為460()
+        public void Test_第一集買了一本_第二集也買了一本_價格應為190()
         {
             //arrange
             var target = new Cart<Book>(rules);
             var cart =
                 new List<Book>
                 {
-                    new Book(){Id = 1,Name = "HarryPotter 1",Price = 100},
-                    new Book(){Id = 2,Name = "HarryPotter 2",Price = 100},
-                    new Book(){Id = 3,Name = "HarryPotter 3",Price = 100},
                     new Book(){Id = 1,Name = "HarryPotter 1",Price = 100},
                     new Book(){Id = 2,Name = "HarryPotter 2",Price = 100}
                 };
-            var expected = 460;
+            var expected = 190;
 
             // act
             var actual = target.Checkout(cart, a => a.Price);
@@ -79,8 +72,57 @@ namespace TDD_day2
             Assert.AreEqual(expected, actual);
 
         }
+
         [TestMethod]
-        public void Test_五本書_五本皆不同_結果應為375()
+        public void Test_一二三集各買了一本_價格應為270()
+        {
+            //arrange
+            var target = new Cart<Book>(rules);
+            var cart =
+                new List<Book>
+                {
+                    new Book(){Id = 1,Name = "HarryPotter 1",Price = 100},
+                    new Book(){Id = 2,Name = "HarryPotter 2",Price = 100},
+                    new Book(){Id = 3,Name = "HarryPotter 3",Price = 100}
+                };
+            var expected = 270;
+
+            // act
+            var actual = target.Checkout(cart, a => a.Price);
+
+
+            // assert
+
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        [TestMethod]
+        public void Test_一二三四集各買了一本_價格應為320()
+        {
+            //arrange
+            var target = new Cart<Book>(rules);
+            var cart =
+                new List<Book>
+                {
+                    new Book(){Id = 1,Name = "HarryPotter 1",Price = 100},
+                    new Book(){Id = 2,Name = "HarryPotter 2",Price = 100},
+                    new Book(){Id = 3,Name = "HarryPotter 3",Price = 100},
+                    new Book(){Id = 4,Name = "HarryPotter 4",Price = 100}
+                };
+            var expected = 320;
+
+            // act
+            var actual = target.Checkout(cart, a => a.Price);
+
+
+            // assert
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        [TestMethod]
+        public void Test_一次買了整套_一二三四五集各買了一本_價格應為375()
         {
             //arrange
             var target = new Cart<Book>(rules);
@@ -100,7 +142,54 @@ namespace TDD_day2
 
 
             // assert
+            Assert.AreEqual(expected, actual);
 
+        }
+        [TestMethod]
+        public void Test_一二集各買了一本_第三集買了兩本_價格應為370()
+        {
+            //arrange
+            var target = new Cart<Book>(rules);
+            var cart =
+                new List<Book>
+                {
+                    new Book(){Id = 1,Name = "HarryPotter 1",Price = 100},
+                    new Book(){Id = 2,Name = "HarryPotter 2",Price = 100},
+                    new Book(){Id = 3,Name = "HarryPotter 3",Price = 100},
+                    new Book(){Id = 3,Name = "HarryPotter 3",Price = 100}
+                };
+            var expected = 370;
+
+            // act
+            var actual = target.Checkout(cart, a => a.Price);
+
+
+            // assert
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        [TestMethod]
+        public void Test_第一集買了一本_第二三集各買了兩本_價格應為460()
+        {
+            //arrange
+            var target = new Cart<Book>(rules);
+            var cart =
+                new List<Book>
+                {
+                    new Book(){Id = 1,Name = "HarryPotter 1",Price = 100},
+                    new Book(){Id = 2,Name = "HarryPotter 2",Price = 100},
+                    new Book(){Id = 2,Name = "HarryPotter 2",Price = 100},
+                    new Book(){Id = 3,Name = "HarryPotter 3",Price = 100},
+                    new Book(){Id = 3,Name = "HarryPotter 3",Price = 100}
+                };
+            var expected = 460;
+
+            // act
+            var actual = target.Checkout(cart, a => a.Price);
+
+
+            // assert
             Assert.AreEqual(expected, actual);
 
         }
