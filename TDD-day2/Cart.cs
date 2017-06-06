@@ -4,34 +4,46 @@ using System.Linq;
 
 namespace TDD_day2
 {
-    internal class Cart<Book>
+    internal class Cart<T>
     {
-        private readonly Rule<Book> rules;
+        private readonly Rule<T> rules;
 
-        public Cart(Rule<Book> rules)
+        public Cart(Rule<T> rules)
         {
             this.rules = rules;
         }
 
-        internal int Checkout(List<Book> cart, Func<Book, int> selector)
+        internal double Checkout(List<T> cart, Func<T, double> selector)
         {
-            int result =GetAmount(cart, selector);
+            double result = GetAmount(cart, selector);
             //var typeCount = cart.Select(a => a).Distinct();
-            
+
 
             return result;
         }
 
-        private int GetAmount(List<Book> cart, Func<Book, int> selector)
+        private double GetAmount(List<T> cart, Func<T, double> selector)
         {
-            int result = 0;
-            if (cart.Select(a=>a).Distinct().Count()==1)
+            double result = 0;
+            var DistinctCart = cart.Select(a => a).Distinct();
+            if (DistinctCart.Count() == 0)
+                return 0;
+            else if (DistinctCart.Count() == 1)
             {
                 return cart.Sum(selector);
             }
             else
             {
-                int+=GetAmount()
+                var disCartList = DistinctCart.ToList();
+                foreach (var item in disCartList)
+                {
+                    cart.Remove(item);
+                }
+
+                double discount = 0.0;
+                rules.Details.TryGetValue(disCartList.Count(), out discount);
+                result = disCartList.Sum(selector) * (1 - discount);
+                result += GetAmount(cart, selector);
             }
             return result;
         }

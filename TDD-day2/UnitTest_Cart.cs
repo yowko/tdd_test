@@ -54,9 +54,59 @@ namespace TDD_day2
             Assert.AreEqual(expected, actual);
 
         }
+        [TestMethod]
+        public void Test_五本書_三本不同_第四本與第五本是重複的_結果應為460()
+        {
+            //arrange
+            var target = new Cart<Book>(rules);
+            var cart =
+                new List<Book>
+                {
+                    new Book(){Id = 1,Name = "HarryPotter 1",Price = 100},
+                    new Book(){Id = 2,Name = "HarryPotter 2",Price = 100},
+                    new Book(){Id = 3,Name = "HarryPotter 3",Price = 100},
+                    new Book(){Id = 1,Name = "HarryPotter 1",Price = 100},
+                    new Book(){Id = 2,Name = "HarryPotter 2",Price = 100}
+                };
+            var expected = 460;
+
+            // act
+            var actual = target.Checkout(cart, a => a.Price);
+
+
+            // assert
+
+            Assert.AreEqual(expected, actual);
+
+        }
+        [TestMethod]
+        public void Test_五本書_五本皆不同_結果應為375()
+        {
+            //arrange
+            var target = new Cart<Book>(rules);
+            var cart =
+                new List<Book>
+                {
+                    new Book(){Id = 1,Name = "HarryPotter 1",Price = 100},
+                    new Book(){Id = 2,Name = "HarryPotter 2",Price = 100},
+                    new Book(){Id = 3,Name = "HarryPotter 3",Price = 100},
+                    new Book(){Id = 4,Name = "HarryPotter 4",Price = 100},
+                    new Book(){Id = 5,Name = "HarryPotter 5",Price = 100}
+                };
+            var expected = 375;
+
+            // act
+            var actual = target.Checkout(cart, a => a.Price);
+
+
+            // assert
+
+            Assert.AreEqual(expected, actual);
+
+        }
     }
 
-    internal class Book
+    internal struct Book
     {
         public int Id { get; set; }
         public string Name { get; set; }
